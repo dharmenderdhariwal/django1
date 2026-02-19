@@ -1,0 +1,18 @@
+<!-- login.html -->
+{% extends "base.html" %}
+
+<title>{% block title %} Login {% endblock %}
+
+{% block content %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Display form fields as paragraphs -->
+        <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="{% url 'signup' %}">Signup here</a></p>
+{% endblock %}

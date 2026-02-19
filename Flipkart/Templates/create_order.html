@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+<title>{% block title %} order {% endblock %}</title>
+{% block content %}
+  
+
+
+ <!-- create_order.html -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Place Order</button>
+</form>
+
+
+ 
+
+ 
+    
+
+
+
+
+
+{% endblock %}

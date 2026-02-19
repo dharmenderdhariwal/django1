@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Confirm Order{% endblock %}
+
+{% block content %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <h1>Order Confirmation</h1>
+
+  <p>Your order #{{ order.id }} has been confirmed successfully.</p>
+  <p>Total Price: ₹{{ order.total_price }}</p>
+
+  <p>Thank you for shopping with us!</p>
+
+  <div>
+    <a href="{% url 'order_detail' order.id %}" class="btn btn-primary">View Order Details</a>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Continue Shopping</a>
+  </div>
+
+  <!-- Optionally, you could also add a button to view other orders or go back to home -->
+{% endblock %}
+
+
+
+ 
+
+ 
+
+ 
+    
+
+ 

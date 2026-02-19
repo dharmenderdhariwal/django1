@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+ 
+<title>{% block title %}Cart{% endblock %}
+
+{% block content %}
+<h2>Your Cart</h2>
+
+{% if cart.cartitem_set.all %}
+<table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+    <thead>
+        <tr style="background-color: #f4f4f4; text-align: left; padding: 10px;">
+            <th style="padding: 10px; border: 1px solid #ddd;">Product</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Price</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Quantity</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Total</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Actions</th>
+            <th style="padding: 10px; border: 1px solid #ddd;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart.cartitem_set.all %}
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{ item.product.name }}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{ item.product.price }}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                  <!-- Decrease Quantity -->
+                <form action="{% url 'cart_detail' %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="decrease_{{ item.id }}" style="padding: 5px 10px; margin-left: 5px; background-color: #dc3545; color: white; border: none; cursor: pointer;">-</button>
+
+                  {{ item.quantity }}
+
+                <!-- Increase Quantity -->
+                <form action="{% url 'cart_detail' %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="increase_{{ item.id }}" style="padding: 5px 10px; margin-right: 5px; background-color: #28a745; color: white; border: none; cursor: pointer;">+</button>
+                </form>
+            </td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{ item.total_price }}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <!-- Remove button using POST method -->
+                <form action="{% url 'remove_from_cart' item.product.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" style="padding: 5px 10px; background-color: #ffc107; color: white; border: none; cursor: pointer;">Remove</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3 style="margin-top: 20px;">Total: {{ cart.total_price }}</h3>
+<button style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; font-size: 16px;">
+    <a href="{% url 'checkout' %}" style="color: white; text-decoration: none;">Proceed to Checkout</a>
+</button>
+
+{% else %}
+<h2>Your cart is empty.</h2>
+<p>It looks like your cart is empty. You can go back to the home page or continue shopping!</p>
+<button style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; font-size: 16px;">
+    <a href="{% url 'home' %}" style="color: white; text-decoration: none;">Home</a>
+</button>
+{% endif %}
+{% endblock %}
+

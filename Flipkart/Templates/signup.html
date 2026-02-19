@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+ 
+<title>{% block title %} Signup {% endblock %}
+
+{% block content %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <h2>Signup</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Display form fields as paragraphs -->
+        <button type="submit">Signup</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+{% endblock %}
+
+ 
+
+
+        
+
+
+
+
+
+
+
+
+ 

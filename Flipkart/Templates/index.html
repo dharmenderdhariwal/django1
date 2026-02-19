@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+<title>{% block title %} index  {% endblock %}</title>
+{% block content %}
+  
+
+
+<h1>index</h1>
+
+ 
+
+<div class="product-container">
+    <div class="product-image">
+        <img src="https://m.media-amazon.com/images/I/61I3lTlnbXL._SX679_.jpg" alt="Bathroom Shelf">
+    </div>
+    <div class="product-details">
+        <h1>COSTEM Bathroom Shelf - Self Adhesive</h1>
+        <p class="rating">⭐⭐⭐⭐☆ (1,234 ratings)</p>
+        <p class="price">₹499 <span class="old-price">₹899</span></p>
+        <p class="delivery">FREE Delivery by Tomorrow</p>
+        <button class="buy-button">Add to Cart 🛒</button>
+        
+        <h3>About this item</h3>
+        <ul>
+            <li>Multipurpose wall mount storage rack for bathroom and kitchen</li>
+            <li>Self-adhesive, no drilling needed</li>
+            <li>Rust-proof and waterproof</li>
+            <li>Easy to install and remove</li>
+        </ul>
+    </div>
+</div>
+
+ 
+
+<h3>{{ td }}</h3>
+<h3>{{ name }}</h3>
+
+ 
+
+ 
+    
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f1f3f6;
+        margin: 0;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* HEADER */
+    .header {
+        background-color: #2874f0;
+        color: white;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header h2 {
+        margin: 0;
+    }
+
+    .nav-links a {
+        margin-left: 20px;
+        color: white;
+        font-weight: 500;
+    }
+
+    .nav-links a:hover {
+        text-decoration: underline;
+    }
+
+    /* FOOTER */
+    .footer {
+        background-color: #212121;
+        color: #fff;
+        padding: 20px 40px;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .footer a {
+        color: #00bcd4;
+        margin: 0 5px;
+        transition: 0.3s;
+    }
+
+    .footer a:hover {
+        color: #4dd0e1;
+        text-decoration: underline;
+    }
+
+    /* SIDEBAR */
+    h4 {
+        margin-bottom: 20px;
+        color: #343a40;
+    }
+
+    .list-group-item {
+        border: none;
+        background: white;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+    .list-group-item:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* PRODUCT */
+    .product {
+        text-align: center;
+        padding: 15px;
+    }
+
+    .product img {
+        border-radius: 5px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .product h3 {
+        font-size: 1.1rem;
+        color: #007bff;
+    }
+
+    .product p {
+        color: #495057;
+        font-weight: 500;
+    }
+
+    /* STAR RATING */
+    .rating {
+        margin: 8px 0;
+    }
+
+    .rating i {
+        color: #ccc;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .rating i.active {
+        color: gold;
+    }
+
+    .rating-text {
+        font-size: 13px;
+        margin-left: 5px;
+        color: #555;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        font-weight: bold;
+        transition: 0.3s;
+        padding: 6px 14px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .container-fluid {
+        padding: 30px;
+    }
+
+    @media (max-width: 768px) {
+        .col-lg-3, .col-lg-9 {
+            width: 100%;
+        }
+    }
+</style>
+
+<!-- HEADER -->
+<div class="header">
+    <h2>MyShop</h2>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="container-fluid mt-3">
+
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-lg-3 mb-4">
+
+            <h4>Categories</h4>
+
+            <div class="list-group">
+
+                <a href="{% url 'home' %}" class="list-group-item">
+                    All Products
+                </a>
+
+                {% for category in categories %}
+                <a href="?category={{ category.id }}" class="list-group-item">
+                    {{ category.name }}
+                </a>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <!-- PRODUCTS -->
+        <div class="col-lg-9">
+
+            <h4>Products</h4>
+
+            <div class="row">
+
+                {% for product in products %}
+
+                <div class="card mx-auto mb-4" style="width:18rem;">
+
+                    <div class="product">
+
+                        <img src="{{ product.image.url }}"
+                             alt="{{ product.name }}"
+                             width="200"
+                             height="200">
+
+                        <h3>{{ product.name }}</h3>
+
+                        <!-- STAR RATING (DEFAULT = 3) -->
+                        <div class="rating" data-rating="3">
+
+                            <i class="fa fa-star" data-value="1"></i>
+                            <i class="fa fa-star" data-value="2"></i>
+                            <i class="fa fa-star" data-value="3"></i>
+                            <i class="fa fa-star" data-value="4"></i>
+                            <i class="fa fa-star" data-value="5"></i>
+
+                            <span class="rating-text"></span>
+
+                        </div>
+
+                        <p>₹ {{ product.price }}</p>
+
+                        <a href="{% url 'add_to_cart' product.id %}"
+                           class="btn btn-primary">
+                            Add to Cart
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+    <p>&copy; 2025 MyShop. All rights reserved.</p>
+
+    <p>
+        Contact :
+        <a href="mailto:dharmenderdhariwal70@gmail.com">
+            dharmenderdhariwal70@gmail.com
+        </a>
+        |
+        <a href="tel:+918685020308">
+            +91 8685020308
+        </a>
+    </p>
+
+    <div style="margin-top:10px;">
+
+        <a href="https://www.instagram.com/ch_jat008?igsh=bWI3MXZxaGU5OGJtyourpage" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="https://www.facebook.com/yourpage" target="_blank">
+            <i class="fab fa-facebook"></i>
+        </a>
+
+        <a href="https://twitter.com/yourpage" target="_blank">
+            <i class="fab fa-twitter"></i>
+        </a>
+
+    </div>
+
+</div>
+
+<!-- STAR SCRIPT -->
+<script>
+
+document.querySelectorAll(".rating").forEach(box => {
+
+    const stars = box.querySelectorAll("i");
+    const text = box.querySelector(".rating-text");
+
+    // Default rating
+    let rating = parseInt(box.getAttribute("data-rating")) || 3;
+
+    // Show default stars
+    for (let i = 0; i < rating; i++) {
+        stars[i].classList.add("active");
+    }
+
+    text.innerText = `(${rating} Rating)`;
+
+    // On click change
+    stars.forEach(star => {
+
+        star.addEventListener("click", function () {
+
+            rating = this.getAttribute("data-value");
+
+            stars.forEach(s => s.classList.remove("active"));
+
+            for (let i = 0; i < rating; i++) {
+                stars[i].classList.add("active");
+            }
+
+            text.innerText = `(${rating} Rating)`;
+
+        });
+
+    });
+
+});
+
+</script>
+
+{% endblock %}
