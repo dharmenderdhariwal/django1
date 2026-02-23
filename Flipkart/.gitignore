@@ -1,0 +1,26 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual Environment
+env/
+venv/
+
+# Database
+db.sqlite3
+
+# Environment file (secret keys)
+.env
+
+# Logs
+*.log
+
+# VS Code settings (optional)
+.vscode/
+
+# Media files (uploads)
+media/
+
+# OS files
+.DS_Store
+Thumbs.db
